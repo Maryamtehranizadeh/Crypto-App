@@ -16,6 +16,7 @@ function HomePage() {
   return (
     <div>
       <h1>Homepage</h1>
+      {!coins.length && <h1>Loading....Please wait</h1>}
       <CoinTable coins={coins} />
     </div>
   );

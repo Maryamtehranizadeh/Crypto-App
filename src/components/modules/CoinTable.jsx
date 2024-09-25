@@ -1,13 +1,27 @@
 import React from "react";
 
+import TableRow from "./TableRow";
+
 function CoinTable({ coins }) {
   return (
     <div>
-      <ul>
-        {coins.map((coin) => (
-          <li key={coin.id}>{coin.name}</li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Coin</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>24h</th>
+            <th>Total Volume</th>
+            <th>Empty</th>
+          </tr>
+        </thead>
+        <tbody>
+          {coins.map((coin) => (
+            <TableRow coin={coin} key={coin.id}/>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
