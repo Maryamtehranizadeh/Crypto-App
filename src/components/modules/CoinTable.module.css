@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 50px 100px;
+  /* margin: auto; */
+  min-height: 1000px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table head {
+  border-bottom: 2px solid #fff;
+  margin-bottom: 20px;
+}
+.table th {
+  font: 1.2rem;
+  text-align: left;
+  padding: 10px 0;
+}
+@media (max-width: 600px) {
+  .table {
+    display: block;
+    overflow-x: scroll;
+  }
+  .table th {
+    padding: 0 10px;
+  }
+}

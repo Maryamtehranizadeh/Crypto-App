@@ -17,9 +17,7 @@ function HomePage() {
   }, []);
   return (
     <div>
-      <h1>Homepage</h1>
-
-      <CoinTable coins={coins} loading={loading}/>
+      <CoinTable coins={coins} loading={loading} />
     </div>
   );
 }
