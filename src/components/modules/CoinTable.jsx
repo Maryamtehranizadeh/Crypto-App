@@ -5,7 +5,7 @@ import { RotatingLines } from "react-loader-spinner";
 
 import styles from "./CoinTable.module.css";
 
-function CoinTable({ coins, loading }) {
+function CoinTable({ coins, loading, currency }) {
   return (
     <div className={styles.container}>
       {loading ? (
@@ -24,7 +24,7 @@ function CoinTable({ coins, loading }) {
           </thead>
           <tbody>
             {coins.map((coin) => (
-              <TableRow coin={coin} key={coin.id} />
+              <TableRow coin={coin} key={coin.id} currency={currency} />
             ))}
           </tbody>
         </table>
