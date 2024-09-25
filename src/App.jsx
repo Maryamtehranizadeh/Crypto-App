@@ -5,7 +5,6 @@ function App() {
   return (
     <>
       <Layout>
-        <h4>App Component</h4>
         <HomePage />
       </Layout>
     </>
