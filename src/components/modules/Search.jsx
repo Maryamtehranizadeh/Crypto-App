@@ -1,24 +1,43 @@
 import { useState, useEffect } from "react";
 import { searchCoin } from "../../services/cryptoApi";
+import { RotatingLines } from "react-loader-spinner";
+import styles from "./Search.module.css";
 
 function Search({ currency, setCurrency }) {
   const [text, setText] = useState("");
   const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    if (!text) return;
+    const controller = new AbortController();
+    setCoins([]);
+    if (!text) {
+      setLoading(false);
+      return;
+    }
     const search = async () => {
-      const res = await fetch(searchCoin(text));
-      const json = await res.json();
-      console.log(json);
-      if (json.coins) {
-        setCoins(json.coins);
-        console.log(coins);
+      try {
+        const res = await fetch(searchCoin(text), {
+          signal: controller.signal,
+        });
+        const json = await res.json();
+        if (json.coins) {
+          setLoading(false);
+          setCoins(json.coins);
+        } else {
+          alert(json.status.error_message);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          alert(error.message);
+        }
       }
     };
+    setLoading(true);
     search();
+    return () => controller.abort();
   }, [text]);
   return (
-    <div>
+    <div className={styles.searchBox}>
       <input
         type="text"
         placeholder="Search"
@@ -30,8 +49,25 @@ function Search({ currency, setCurrency }) {
         <option value="usd">USD</option>
         <option value="jpy">JPY</option>
       </select>
+      <div className={styles.searchResult}>
+        {loading && (
+          <RotatingLines
+            strokeWidth="2"
+            strokeColor="#3874ff"
+            width="50px"
+            height="50px"
+          />
+        )}
+        <ul>
+          {coins.map((coin) => (
+            <li key={coin.id}>
+              <img src={coin.thumb} alt={coin.name} />
+              <p>{coin.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
-
 export default Search;

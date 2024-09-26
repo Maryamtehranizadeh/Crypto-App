@@ -13,20 +13,20 @@ function HomePage() {
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      const res = await fetch(getCoinList(page, currency));
-      const json = await res.json();
-      setCoins(json);
-      setLoading(false);
+      try {
+        const res = await fetch(getCoinList(page, currency));
+        const json = await res.json();
+        setCoins(json);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, [page, currency]);
   return (
     <div>
-      <Search
-        currency={currency}
-        setCurrency={setCurrency}
-       
-      />
+      <Search currency={currency} setCurrency={setCurrency} />
       <CoinTable coins={coins} loading={loading} currency={currency} />
       <Pagination page={page} setPage={setPage} />
     </div>
