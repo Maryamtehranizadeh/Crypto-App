@@ -22,8 +22,12 @@ function HomePage() {
   }, [page, currency]);
   return (
     <div>
-      <Search currency={currency} setCurrency={setCurrency} />
-      <CoinTable coins={coins} loading={loading} currency={currency}/>
+      <Search
+        currency={currency}
+        setCurrency={setCurrency}
+       
+      />
+      <CoinTable coins={coins} loading={loading} currency={currency} />
       <Pagination page={page} setPage={setPage} />
     </div>
   );
