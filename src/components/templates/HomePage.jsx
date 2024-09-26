@@ -28,7 +28,12 @@ function HomePage() {
   }, [page, currency]);
   return (
     <div>
-      <Search currency={currency} setCurrency={setCurrency} />
+      <Search
+        currency={currency}
+        setCurrency={setCurrency}
+        chart={chart}
+        setChart={setChart}
+      />
       <CoinTable
         coins={coins}
         loading={loading}

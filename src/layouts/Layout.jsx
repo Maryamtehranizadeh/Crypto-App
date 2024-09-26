@@ -12,7 +12,7 @@ function Layout({ children }) {
       </header>
       {children}
       <footer className={styles.footer}>
-        <p>Developed By Mary with Love</p>
+        <p>Developed By Mary with Love🧡</p>
       </footer>
     </>
   );

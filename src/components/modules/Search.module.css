@@ -56,3 +56,6 @@
   width: 25px;
   height: 25px;
 }
+.searchResult li p {
+  cursor: pointer;
+}

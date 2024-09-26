@@ -2,8 +2,24 @@ import { useState, useEffect } from "react";
 import { searchCoin } from "../../services/cryptoApi";
 import { RotatingLines } from "react-loader-spinner";
 import styles from "./Search.module.css";
+import { marketChart } from "../../services/cryptoApi";
 
-function Search({ currency, setCurrency }) {
+function Search({ currency, setCurrency, setChart }) {
+  const showHandler = async (e) => {
+    try {
+      console.log(coins);
+      const key = e.target.innerText;
+      const primaryCoin = coins.find((coin) => key === coin.name);
+      console.log(primaryCoin.thumb);
+      const coin = { ...primaryCoin, image: primaryCoin.thumb };
+      const res = await fetch(marketChart(coin.id));
+      const json = await res.json();
+
+      setChart({ ...json, coin });
+    } catch (error) {
+      setChart(null);
+    }
+  };
   const [text, setText] = useState("");
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -49,7 +65,7 @@ function Search({ currency, setCurrency }) {
         <option value="usd">USD</option>
         <option value="jpy">JPY</option>
       </select>
-      
+
       {/* // according to botostart the conditional rendering of the search result */}
       {/* //div should be based on the !!coins.length || isLoading // if i got a */}
       {/* /bug, the above should be tried out */}
@@ -68,7 +84,7 @@ function Search({ currency, setCurrency }) {
             {coins.map((coin) => (
               <li key={coin.id}>
                 <img src={coin.thumb} alt={coin.name} />
-                <p>{coin.name}</p>
+                <p onClick={showHandler}>{coin.name}</p>
               </li>
             ))}
           </ul>
