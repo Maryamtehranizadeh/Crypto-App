@@ -49,24 +49,31 @@ function Search({ currency, setCurrency }) {
         <option value="usd">USD</option>
         <option value="jpy">JPY</option>
       </select>
-      <div className={styles.searchResult}>
-        {loading && (
-          <RotatingLines
-            strokeWidth="2"
-            strokeColor="#3874ff"
-            width="50px"
-            height="50px"
-          />
-        )}
-        <ul>
-          {coins.map((coin) => (
-            <li key={coin.id}>
-              <img src={coin.thumb} alt={coin.name} />
-              <p>{coin.name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      
+      {/* // according to botostart the conditional rendering of the search result */}
+      {/* //div should be based on the !!coins.length || isLoading // if i got a */}
+      {/* /bug, the above should be tried out */}
+
+      {!!text && (
+        <div className={styles.searchResult}>
+          {loading && (
+            <RotatingLines
+              strokeWidth="2"
+              strokeColor="#3874ff"
+              width="50px"
+              height="50px"
+            />
+          )}
+          <ul>
+            {coins.map((coin) => (
+              <li key={coin.id}>
+                <img src={coin.thumb} alt={coin.name} />
+                <p>{coin.name}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

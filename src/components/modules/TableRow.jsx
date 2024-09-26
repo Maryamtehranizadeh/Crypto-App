@@ -2,12 +2,22 @@ import React from "react";
 import chartUp from "../../assets/chart-up.svg";
 import chartDown from "../../assets/chart-down.svg";
 import styles from "./TableRow.module.css";
+import { marketChart } from "../../services/cryptoApi";
 
-function TableRow({ coin, currency }) {
+function TableRow({ coin, currency, setChart }) {
+  const showHandler = async () => {
+    try {
+      const res = await fetch(marketChart(coin.id));
+      const json = await res.json();
+      setChart(json);
+    } catch (error) {
+      setChart(null);
+    }
+  };
   return (
     <tr className={styles.tr}>
       <td>
-        <div className={styles.symbole}>
+        <div className={styles.symbole} onClick={showHandler}>
           <img src={coin.image} alt="Image" />
           <span>{coin.symbol.toUpperCase()}</span>
         </div>
