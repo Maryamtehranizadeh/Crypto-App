@@ -5,11 +5,20 @@ import styles from "./TableRow.module.css";
 import { marketChart } from "../../services/cryptoApi";
 
 function TableRow({ coin, currency, setChart }) {
+  const {
+    id,
+    image,
+    name,
+    symbol,
+    total_volume,
+    current_price,
+    price_change_percentage_24h,
+  } = coin;
   const showHandler = async () => {
     try {
       const res = await fetch(marketChart(coin.id));
       const json = await res.json();
-      setChart(json);
+      setChart({ ...json, coin});
     } catch (error) {
       setChart(null);
     }
